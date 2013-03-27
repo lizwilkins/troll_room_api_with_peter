@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
   end
 
   def index
-    messages = Message.all
+    messages = Message.limit(params[:limit])
     render :json => messages
   end
 end

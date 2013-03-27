@@ -43,13 +43,17 @@ describe MessagesController do
   end
 
   context 'GET index' do
-    before {Message.create({:name => 'michael', :message => 'tdd!!!'})}
-    before {get :index}
+    context 'limit to 20 messages' do
+      let(:parameters) {{:limit => 20}}
+      before {21.times {|num| Message.create({:name => "name#{num}", :message => "msg#{num}"})}}
+      before {get :index, parameters}
 
-    it {should respond_with 200}
-    it {should respond_with_content_type :json}
-    it 'responds with a json representation of all the messages' do
-      response.body.should eq Message.all.to_json
+
+      it {should respond_with 200}
+      it {should respond_with_content_type :json}
+      it 'responds with a json representation of the last 20 messages' do
+        response.body.should eq Message.limit(20).to_json
+      end
     end
   end
 
