@@ -1,4 +1,13 @@
 TrollRoom::Application.routes.draw do
+
+  resources :messages
+
+  # match 'messages' => 'messages#create', :via => :post
+  # match 'messages/:id' => 'messages#show', :via => :get
+  # match 'messages/:id' => 'messages#update', :via => :put
+  # match 'messages/:id' => 'messages#destroy', :via => :delete
+  # match 'messages' => 'messages#index', :via => :get
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
