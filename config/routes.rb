@@ -1,8 +1,21 @@
 TrollRoom::Application.routes.draw do
 
-  resources :messages
+  resources :messages, :rooms
 
-  # match 'messages' => 'messages#create', :via => :post
+  match 'messages' => 'rooms#list_messages', :via => :get
+  match 'messages' => 'messages#create', :via => :post
+  match 'rooms' => 'rooms#create', :via => :post
+  match 'rooms' => 'rooms#index', :via => :get
+  match 'rooms/:id' => 'rooms#show', :via => :get
+
+
+
+
+    #   it {should route(:post, '/rooms').to :action => :create}
+    # it {should route(:get, '/rooms/1').to :action => :show, :id => 1}
+    # it {should route(:get, '/rooms').to :action => :index}
+    # it {should route(:get, '/messages').to :action => :list_messages}
+    #     it {should route(:post, '/messages').to :action => :create}
   # match 'messages/:id' => 'messages#show', :via => :get
   # match 'messages/:id' => 'messages#update', :via => :put
   # match 'messages/:id' => 'messages#destroy', :via => :delete

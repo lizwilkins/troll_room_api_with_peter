@@ -4,15 +4,11 @@ describe MessagesController do
 
   context 'routing' do
     it {should route(:post, '/messages').to :action => :create}
-    it {should route(:get, '/messages/1').to :action => :show, :id => 1}
-    it {should route(:put, '/messages/1').to :action => :update, :id => 1}
-    it {should route(:delete, '/messages/1').to :action => :destroy, :id => 1}
-    it {should route(:get, '/messages').to :action => :index}
   end
 
   context 'POST create' do
     context 'with valid parameters' do
-      let(:valid_attributes) {{:name => 'michael', :message => 'my name is michael'}}
+      let(:valid_attributes) {{:name => 'michael', :message => 'my name is michael', :room_id => 1}}
       let(:valid_parameters) {{:message => valid_attributes}}
 
       it 'creates a new message' do
@@ -42,19 +38,19 @@ describe MessagesController do
     end
   end
 
-  context 'GET index' do
-    context 'limit to 20 messages' do
-      let(:parameters) {{:limit => 20}}
-      before {21.times {|num| Message.create({:name => "name#{num}", :message => "msg#{num}"})}}
-      before {get :index, parameters}
+  # context 'GET index' do
+  #   context 'limit to 20 messages' do
+  #     let(:parameters) {{:limit => 20}}
+  #     before {21.times {|num| Message.create({:name => "name#{num}", :message => "msg#{num}"})}}
+  #     before {get :index, parameters}
 
 
-      it {should respond_with 200}
-      it {should respond_with_content_type :json}
-      it 'responds with a json representation of the last 20 messages' do
-        response.body.should eq Message.limit(20).to_json
-      end
-    end
-  end
+  #     it {should respond_with 200}
+  #     it {should respond_with_content_type :json}
+  #     it 'responds with a json representation of the last 20 messages' do
+  #       response.body.should eq Message.limit(20).to_json
+  #     end
+  #   end
+  # end
 
 end
